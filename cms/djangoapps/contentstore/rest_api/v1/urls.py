@@ -15,6 +15,8 @@ urlpatterns = [
         proctored_exam_settings.ProctoredExamSettingsView.as_view(),
         name="proctored_exam_settings"
     ),
-    re_path(fr'^xblock/{settings.COURSE_ID_PATTERN}/{settings.USAGE_KEY_PATTERN}?$',
+    re_path(fr'^xblock/{settings.COURSE_ID_PATTERN}/{settings.USAGE_KEY_PATTERN}/$',
             xblock.XblockView.as_view(), name='studio_content'),
+    re_path(fr'^xblock/{settings.COURSE_ID_PATTERN}/$',
+            xblock.XblockPostView.as_view(), name='studio_content_create'),
 ]

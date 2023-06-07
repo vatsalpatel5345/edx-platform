@@ -114,7 +114,7 @@ class XblockViewPostTest(XblockViewTestCase, ModuleStoreTestCase, APITestCase):
 
     def get_url(self):
         return reverse(
-            "cms.djangoapps.contentstore:v1:studio_content",
+            "cms.djangoapps.contentstore:v1:studio_content_create",
             kwargs=self.get_url_params(),
         )
 
