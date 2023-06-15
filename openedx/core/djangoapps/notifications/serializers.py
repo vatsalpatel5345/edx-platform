@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from common.djangoapps.student.models import CourseEnrollment
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
+from openedx.core.djangoapps.notifications.base_notification import get_notification_content
 from openedx.core.djangoapps.notifications.models import (
     get_notification_channels,
     Notification,
@@ -129,6 +130,7 @@ class NotificationSerializer(serializers.ModelSerializer):
     """
     Serializer for the Notification model.
     """
+    content = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Notification
@@ -137,8 +139,15 @@ class NotificationSerializer(serializers.ModelSerializer):
             'app_name',
             'notification_type',
             'content_context',
+            'content',
             'content_url',
             'last_read',
             'last_seen',
             'created',
         )
+
+    def get_content(self, obj):
+        """
+        Returns the content of the notification.
+        """
+        return get_notification_content(obj.notification_type, obj.content_context)
