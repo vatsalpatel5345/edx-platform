@@ -4603,6 +4603,7 @@ ENTERPRISE_ALL_SERVICE_USERNAMES = [
     'enterprise_channel_worker',
     'enterprise_access_worker',
     'enterprise_subsidy_worker',
+    'subscriptions_worker'
 ]
 
 
