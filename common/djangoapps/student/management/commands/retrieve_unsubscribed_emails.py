@@ -1,3 +1,5 @@
+"""Management command to retrieve unsubscribed emails from Braze."""
+
 import csv
 import logging
 import uuid
@@ -51,7 +53,7 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS('Unsubscribed emails retrieved successfully'))
         except Exception as exc:  # pylint: disable=broad-except
             logger.exception(f'Unable to retrieve unsubscribed emails from Braze due to : {exc}')
-            raise CommandError(f'Unable to retrieve unsubscribed emails from Braze due to : {exc}')
+            raise CommandError(f'Unable to retrieve unsubscribed emails from Braze due to : {exc}')  # lint-amnesty, pylint: disable=raise-missing-from
 
         output_filename = f'{str(uuid.uuid4())}.csv'
 
@@ -63,7 +65,7 @@ class Command(BaseCommand):
                 csv_writer.writerows(rows)
                 self.stdout.write(
                     self.style.SUCCESS(f'Unsubscribed emails write in CSV file {output_filename} successfully'))
-        except OSError:
+        except OSError as e:
             logger.exception(f'Error writing to file: {output_filename}')
             raise CommandError(
-                f'Error writing to file: {output_filename}')  # lint-amnesty, pylint: disable=raise-missing-from
+                f'Error writing to file: {output_filename}') from e  # lint-amnesty, pylint: disable=raise-missing-from

@@ -1,3 +1,5 @@
+"""Tests for retrieve unsubscribed emails management command"""
+
 import os
 from io import StringIO
 from tempfile import NamedTemporaryFile
@@ -13,12 +15,6 @@ class RetrieveUnsubscribedEmailsTests(TestCase):
     """
     Tests for the retrieve_unsubscribed_emails command.
     """
-
-    def setUp(self):
-        """
-        Set up tests
-        """
-        super().setUp()
 
     @staticmethod
     def _write_test_csv(csv, lines):
