@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 csv_writer.writerows(rows)
                 self.stdout.write(
                     self.style.SUCCESS(f'Unsubscribed emails write in CSV file {output_filename} successfully'))
-        except OSError as e:
+        except OSError:  # pylint: disable=broad-except
             logger.exception(f'Error writing to file: {output_filename}')
             raise CommandError(
-                f'Error writing to file: {output_filename}') from e  # lint-amnesty, pylint: disable=raise-missing-from
+                f'Error writing to file: {output_filename}')  # lint-amnesty, pylint: disable=raise-missing-from
