@@ -15,6 +15,10 @@ UNSUBSCRIBED_EMAILS_MAX_LIMIT = 500
 
 
 class Command(BaseCommand):
+    """
+    Management command to retrieve unsubscribed emails from Braze.
+    """
+
     help = """
     Retrieve unsubscribed emails from Braze API based on specified parameters.
 
@@ -65,7 +69,7 @@ class Command(BaseCommand):
                 csv_writer.writerows(rows)
                 self.stdout.write(
                     self.style.SUCCESS(f'Unsubscribed emails write in CSV file {output_filename} successfully'))
-        except OSError:  # pylint: disable=broad-except
+        except OSError as e:  # pylint: disable=broad-except
             logger.exception(f'Error writing to file: {output_filename}')
             raise CommandError(
-                f'Error writing to file: {output_filename}')  # lint-amnesty, pylint: disable=raise-missing-from
+                f'Error writing to file: {output_filename}') from e  # lint-amnesty, pylint: disable=raise-missing-from
